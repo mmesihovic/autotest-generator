@@ -67,15 +67,6 @@ function patchConfigValues(data) {
     document.getElementById('profile').checked = Helpers.getBooleanValue(data.profile);
 }
 
-function nesto() {
-    console.log("TO ROKI");
-    var obj = getTestValues();
-    console.log(obj);
-    console.log(currentTest);
-    console.log(obj == currentTest);
-    console.log(obj === currentTest);
-}
-
 //Getting expected and alternative output values
 function getExpectedOutputValues() {
     var outputContainer = document.getElementById('expected_output_variants');
