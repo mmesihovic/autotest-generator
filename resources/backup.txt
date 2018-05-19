@@ -1,0 +1,88 @@
+\chapter{Pregled literature}
+\initial{U} ovom poglavlju se definišu osnovni pojmovi koji se prožimaju radom, te koncepti i tehnologije koji su veoma bitni za ovo istraživanje, na čemu se zasniva i web aplikacija razvijena u sklopu rada.
+\section{Osnovni Pojmovi}
+\begin{itemize}
+\item 
+\underline{Data Interchange Format} - format predstavljanja podataka namijenjen za komunikaciju između dva ili više entiteta. Dva najpopularnija formata korištena su XML (eXtensible Markup Langugage) i JSON (JavaScript Object Notation), s obzirom da veliki broj platformi i sistema omogućavaju njihovo korištenje što uveliko olakšava komunikaciju među entitetima.
+\item
+\underline{Web Servis} - predstavlja jedan od načina komunikacije između dva entiteta putem mreže. To je softver dizajniran tako da podržava komunikaciju putem standardizovanih protokola kao što su XML (eXtensible Markup Language), SOAP (Simple Object Access Protocol), WSDL (Web Services Description Language) i sl. U praksi, on nikada ne pruža grafičko okruženje za korisnika, već pruža objektno-orijentirani web bazirani interfejs za komunikaciju sa bazom podataka ili nekom od drugih komponenti sistema.
+\item
+\underline{Portabilnost} - koja se u ovom slučaju odnosi na softver i podatke kojima taj softver upravlja predstavlja mjeru kojom je određeno koliko lako je softver prebaciti sa jednog okruženja na drugo, ili koliko je jednostavan način komunikacije i prenosa podataka između dva ili više entiteta različitog tipa. S obzirom na broj različitih tehnoloških platformi koji se danas koriste, mogućnost prenosa softvera i podataka između dvije platforme različitog tipa je krucijalna kako za lakše razvijanje i održavanje softvera tako i za dojam koji krajnji korisnik sistema dobija.
+\item 
+\underline{Single-page aplikacija} - predstavlja aplikaciju koja se sastoji samo od jedne stranice, koja se dinamički osvježava, odnosno sva interakcija se odvija na jednoj stranici i nema potrebe za dodatnim učitavanjem stranica sa servera. Ovaj pristup je sve popularniji u posljednje vrijeme, kako zbog dizajna koji je oku mnogo prijatniji, tako i zbog razvoja velikog broja okruženja za razvijanje aplikacija ovog tipa. U osnovi razvoja ovih aplikacija koristi se JavaScript programski jezik, te okruženja zasnovana na JavaScript-u kao što su Ember.js, ReactJS, AngularJS, Vue.js i sl.
+\item 
+\underline{SDK} - ili Software Development Kit je set alata koji se koriste u svrhu razvijanja aplikacija specifično za neke softverske pakete, hardverske platforme ili razvojna okruženja. U slučaju kreiranja aplikacija specifično za platforme poput Android aplikacija na Java plaformi zahtijeva korištenje adekvatnog SDK. Obično se ogleda u implementaciji nekoliko jednostavnih aplikacijsko-programskih interfejsa u formi biblioteka koje dolaze u sklopu SDK.
+\item
+\underline{Front-end aplikacije} - dio aplikacije koji služi za direktnu interakciju sa korisnikom, tj. grafičko okruženje koje korisnik vidi. U slučaju web aplikacija ili stranica, front-end se razvija kombinacijom markup jezika kao što su HTML (Hypertext Markup Language), CSS (Cascading Style Sheets) i programskog jezika JavaScript. Ipak, najčešće se koriste okruženja koja su zasnovana na JavaScriptu, već navedeni Ember.js, ReactJS, AngularJS i sl.
+\item
+\underline{Back-end aplikacije} - pozadinski dio aplikacije, koji korisnik ne vidi i sa kojim nema kontakta. Back-end zapravo skriva komunikaciju između aplikacije i baze podataka, način pribavljanja i obrade podataka unutar aplikacije-sistema i mnoge druge aspekte unutar sistema koje korisnik nema potrebe da vidi.
+\item
+\underline{Cloud9 IDE} - je besplatno online razvojno okruženje (eng. integrated development environment) koje podržava razvoj programskih rješenja korištenjem različitih jezika, uključujući C, C++, PHP, JavaScript sa Node.js-om i sl. Skoro u potpunosti je razvijeno koristeći JavaScript, dok je back-end aplikacije baziran na Node.js tehnologiji. Cloud9 IDE koristi Ace editor kao osnovni text editor. Cloud9 razvojno okruženje se također koristi i na Elektrotehničkom fakultetu u Sarajevu u sklopu predmeta prve i dijelom druge godine koje se bave rješavanjem programiranjem. 
+
+\end{itemize}
+\newpage
+\section{Unit testiranje}
+\blindtext
+\section{JSON}
+JSON ili JavaScript Object Notation je, pored XML-a, danas najkorišteniji format za razmjenu podataka između različitih sistema. Prva stvar vezana za JSON format koja bi mogla zbuniti početnike je što je ime programskog jezika JavaScript dio njegovog imena, stoga ljudi mogu pogrešno shvatiti da je potrebno poznavanje JavaScript-a da bi mogli koristiti ovaj format podataka. JSON format jeste baziran na notaciji koja je izvedena iz JavaScripta, ali njegova upotreba ne ovisi od programskog jezika koji se koristi. 
+\newline
+\par
+Veliki značaj JSON formata je upravo invarijabilnost u odnosu na programski jezik. Veoma značajna posljedica ovoga je sama \italic{portabilnost}. Portabilnost, ili kompatibilnost prilikom tansfera informacija između platformi i sistema je glavni cilj data interchange formata. Kao što je već spomenuto, JSON notacija je izvedena iz notacije JavaScript-a, ali sam način reprezentacije podataka je takav da ga čak i programski jezici koji nisu objektno orijentirani smatraju prihvatljivim.
+\newline
+\par
+Naime, JSON je zasnovan na JavaScript objektnim literalima. U programiranju, koncept objekta je veoma sličan načinu opisivanja objekata u stvarnom životu, tj. opisivanjem njihovih osobina, tačnije atributa. Shodno s ovim, svaki se objekat može opisati korištenjem ključ-vrijednost (eng. key-value) notacije, koja se koristi i u samom JSON formatu. Svi podaci unutar JSON-a se smještaju u uglaste zagrade, nakon čega se prati ključ-vrijednost notacija, pri čemu su parovi ključa i vrijednosti razdvojeni zarezom. U slučaju da je vrijednost nekog atributa unutar JSON-a ponovo predstavljena JSON formatom, umjesto literala za vrijednost piše se struktura tog JSON objekta.
+\newline
+\begin{figure}[!h]
+\minipage{0.45\textwidth}
+    \includegraphics[width=\linewidth]{images/json_primjer1.png}
+    \caption{Primjer jednostavnog JSON objekta}
+    \label{prva}
+\endminipage\hfill
+\minipage{0.45\textwidth}
+    \includegraphics[width=\linewidth]{images/json_primjer2.png}
+    \caption{Primjer JSON objekta čiji je atribut ponovo JSON objekat}
+    \label{druga}
+\endminipage\hfill
+\end{figure}
+\par
+U slučaju kompleksnih objekata, gdje je ne samo jedna vrijednost atributa predstavljena JSON objektom nego nizom objekata nekog tipa ili čak nizom objekata JSON formata, tada se vrijednosti tog niza stavljaju unutar uglastih zagrada. Očigledno, u slučaju da se ne koristi adekvatna indentacija, JSON objekat može postati veoma nepregledan i težak za čitanje. Srećom, većina razvojnih okruženja forsira indentaciju prilikom pisanja JSON objekata. Primjeri dva JSON objekta sa kompleksnijom strukturom su prikazani na slici 2.3. 
+\begin{figure}[!h]
+\centering
+\minipage{0.45\textwidth}
+    \includegraphics[width=\linewidth]{images/json_primjer3.png}
+    \caption{Primjer JSON objekta čiji je jedan atribut niz objekata}
+    \label{Slika 3}
+\endminipage 
+\end{figure}
+\par
+Konačno, nakon što je JSON format ukratko objašnjen, moguće je izdvojiti njegove najznačajnije koncepte koje doprinose njegovoj širokoj upotrebi:
+\begin{itemize}
+    \item JSON je data interchange format
+    \item JSON je neovisan od programskog jezika
+    \item Baziran je na objektno-literalnoj notaciji JavaScripta
+    \item Predstavlja podatke u skladu sa univerzalnim konceptima programiranja
+\end{itemize}
+
+\section{Buildservice}
+\blindtext
+\section{Bootstrap}
+Boostrap je besplatna i open-source biblioteka koja se koristi za dizajn i razvoj web stranica i web aplikacija. Za razliku od mnogih okruženja i biblioteka koji se koriste za razvoj web stranica i aplikacija, Boostrap se bavi isključivo front-endom aplikacije. Osnovna prednost Boostrap-a je to što je besplatan i što je veoma dobro dokumentovan. Ova biblioteka sadrži veliki broj predložaka za forme, dugmad, tekstove i druge elemente koji su osnova svake web stranice i aplikacije.
+\newline
+\par
+ Bootstrap nudi niz prednosti zbog kojih je jedna od najkorištenijih biblioteka za razvoj front-enda. Prije svega, kompatibilan je sa svim modernim browserima i veoma se stabilno ponaša neovisno od izbora browsera. Druga veoma bitna prednost koju boostrap omogućava je jednostavan razvoj responzivnih web stranica i aplikacija, što je veoma bitno s obzirom na različitost u veličinima ekrana uređaja koje danas koristimo. Pomoću boostrap-a i njegovog pristupa koji se prvenstveno odnosi na mobilne uređaje, tj. uređaje sa malim zaslonima, a tek onda na prikaze većih rezolucija u kombinaciji sa web developmentom znatno olakšava brige o izgledu i funkcionalnostima web stranice ili web aplikacije na različitim uređajima. Još jedna od prednosti Bootstrap-a je ta što čak i početnici koji imaju samo osnovna znanja o HTML-u (Hypertext Markup Langugage) i CSS-u (Cascading Style Sheets) mogu koristiti Boostrap bez većih problema.
+\newline
+\par
+ Za razvoj front-enda web aplikacije koja je razvijena u sklopu ovoga rada korištena je Boostrap biblioteka zbog prednosti koje nudi. S obzirom da je akcenat same aplikacije kontrola i eksportovanje podataka o testovima, ponuđene prednosti Boostrap-a su glavni razlog zbog kojeg se autor odlučio na korištenje ove biblioteke. Više o samom korištenju ove biblioteke prilikom implementacije web aplikacije biće pojašnjeno u jednom od narednih poglavlja rada. Na Slici X. je prikazana jedna od formi izrađene web aplikacije.
+ \newline
+ \newline
+ // Na ovom mjestu ću dodati sliku forme izrađene uz pomoć boostrap-a u procesu implementacije aplikacije.
+
+
+
+
+
+
+
+
+
+
