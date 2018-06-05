@@ -1,11 +1,23 @@
+const AutotestGenerator = (() => {
+
 //Variables required for operations
 //config is .autotest content
 var config = DummyService.getConfigFile();
 var _testSpecifications = [];
 var currentTest = config.test_specifications.length > 0 ? config.test_specifications[0] : null;
 
+const getNextTestID = () => {
+    var _nextID = _testSpecifications.length ? Number(_testSpecifications[0].id) : 0;
+    for(let i=0; i<_testSpecifications.length; i++) {
+        if(_testSpecifications[i] && _testSpecifications[i].id) {
+            if(Number(_testSpecifications[i].id) >= _nextID )
+                _nextID = Number(_testSpecifications[i].id);
+        }
+    }
+    return (_nextID+1).toString();
+}
 //Function which patches all values on to the forms, creates atList and loads first test if it exists
-function importConfigValues() {
+const importConfigValues = () => {
     patchConfigValues(config);
     for(let i=0;i < config.test_specifications.length; i++) {
         addTest(config.test_specifications[i], i+1);
@@ -16,7 +28,7 @@ function importConfigValues() {
 }
 
 //Function which exports JSON object via DummyService
-function exportConfigValues() {
+const exportConfigValues = () => {
     var newConfig = getConfigValues();
     let newState = getTestValues();
     for(let i=0; i<_testSpecifications.length; i++) {
@@ -31,7 +43,7 @@ function exportConfigValues() {
 }
 
 //Getting general config parameters from form - atConfig
-function getConfigValues() {
+const getConfigValues = () => {
     return {
         id: Number(document.getElementById('id').value),
         name: document.getElementById('name').value,
@@ -51,7 +63,7 @@ function getConfigValues() {
 }
 
 //Patching general config parameters on from
-function patchConfigValues(data) {
+const patchConfigValues = (data) => {
     document.getElementById('id').value = data.id; 
     document.getElementById('name').value = data.name;
     document.getElementById('language').value = data.language;
@@ -68,7 +80,7 @@ function patchConfigValues(data) {
 }
 
 //Getting expected and alternative output values
-function getExpectedOutputValues() {
+const getExpectedOutputValues = () => {
     var outputContainer = document.getElementById('expected_output_variants');
     let values = [];
     for(let i=3; i < outputContainer.children.length; i+=2) {
@@ -79,7 +91,7 @@ function getExpectedOutputValues() {
 }
 
 //Getting values from test details (atPreview)
-function getTestValues() {
+const getTestValues = () => {
     return {
         id: Number(document.getElementById('at_id').value),
         require_symbols: Helpers.splitStringArray('require_symbols'),
@@ -102,14 +114,14 @@ function getTestValues() {
 }
 
 //Remove all alternative output values added dynamically
-function removeAdditionalExpectedValues() {
+const removeAdditionalExpectedValues = () => {
     var outputContainer = document.getElementById('expected_output_variants');
     while(outputContainer.children.length != 4)
         outputContainer.removeChild(outputContainer.children[outputContainer.children.length-1]);
 }
 
 //Patch expected output correctly, creating alternative variants if needed
-function patchExpectedOutputValues(data) {
+const patchExpectedOutputValues = (data) => {
     if(data.length == 0) return;
     document.getElementById('variant_1').value = data[0];
     if(data.length > 1) {
@@ -122,9 +134,9 @@ function patchExpectedOutputValues(data) {
 }
 
 //Patching values for specific test entry on form (atPreview)
-function patchTestValues(data, index) {
-    removeAdditionalExpectedValues()
-    document.getElementById('at_id').value = data.id; // Ili generisani
+const patchTestValues = (data, index) => {
+    removeAdditionalExpectedValues();
+    document.getElementById('at_id').value = data.id == "" && _testSpecifications.length ? getNextTestID() : data.id; 
     document.getElementById('at_name').value = index == -1 ? "": "Autotest " + (index+1).toString();
     document.getElementById('require_symbols').value = Helpers.concatStringArray(data.require_symbols);
     document.getElementById('replace_symbols').value = Helpers.concatStringArray(data.replace_symbols);
@@ -143,7 +155,7 @@ function patchTestValues(data, index) {
 }
 
 //selfnote: Could go to helpers, as it just helps out finding adequate index for test in _testSpecification based on atList
-function getTestIndex(objectID) {
+const getTestIndex = (objectID) => {
     var listContainer = document.getElementById('atList');
     for(let i=2; i < listContainer.children.length; i++) {
         if( listContainer.children[i].id == objectID)
@@ -152,7 +164,7 @@ function getTestIndex(objectID) {
 }
 
 //Switching out which test is loaded into atPreview
-function editTest(objectID) {
+const editTest = (objectID) => {
     //Saving changes to current test and saving into _testSpecification array
     let newState = getTestValues();
     for(let i=0; i< _testSpecifications.length; i++) {
@@ -172,7 +184,7 @@ function editTest(objectID) {
 }
 
 //Updating numbers on atList elements, required after deleting test
-function updateListLabels(index) {
+const updateListLabels = (index) => {
     var listContainer = document.getElementById('atList');
     for(let i=index+2; i<listContainer.children.length;i++) {
         var child = listContainer.children[i].children[0];
@@ -185,7 +197,7 @@ function updateListLabels(index) {
 }
 
 //Deleting test from _testSpecification and atList
-function removeTest(objectID) {
+const removeTest = (objectID) => {
     var listContainer = document.getElementById('atList');
     var index = getTestIndex(objectID);
     //If currently open test is being deleted, load next test in row or first
@@ -210,8 +222,8 @@ function removeTest(objectID) {
     }    
 }
 
-// add
-function addTest(data, number) {
+//Adding new test to _testSpecification and atList
+const addTest = (data, number) => {
     //Hiding no tests warning
     document.getElementById('at_warning').style.display = "none";
     //Adding data to _testSpecification
@@ -255,7 +267,7 @@ function addTest(data, number) {
 }
 
 //Removing alternative output 
-function removeOutputVariant(objectID) {
+const removeOutputVariant = (objectID) => {
     var outputContainer = document.getElementById('expected_output_variants');
     var tempArray = objectID.split("_");
     var variant_id = tempArray[tempArray.length-1];
@@ -265,7 +277,7 @@ function removeOutputVariant(objectID) {
 }
 
 //Dynamically adding alternative output 
-function addOutputVariant() {
+const addOutputVariant = () => {
     var outputContainer = document.getElementById('expected_output_variants');
     var variant_number = (outputContainer.children.length/2);
     //Creating DOM Elements
@@ -300,3 +312,24 @@ function addOutputVariant() {
         removeOutputVariant(delete_icon.parentNode.id);
     } 
 }
+
+return {
+    importConfigValues: importConfigValues,
+    exportConfigValues: exportConfigValues,
+    getConfigValues: getConfigValues,
+    patchConfigValues: patchConfigValues,
+    getExpectedOutputValues: getExpectedOutputValues,
+    getTestValues: getTestValues,
+    removeAdditionalExpectedValues: removeAdditionalExpectedValues,
+    patchExpectedOutputValues: patchExpectedOutputValues,
+    patchTestValues: patchTestValues,
+    getTestIndex: getTestIndex,
+    editTest: editTest,
+    updateListLabels: updateListLabels,
+    removeTest: removeTest,
+    addTest: addTest,
+    removeOutputVariant: removeOutputVariant,
+    addOutputVariant: addOutputVariant
+}
+
+})();

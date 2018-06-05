@@ -94,7 +94,7 @@
                 <!--List header-->
                 <div class="row justify-content-between" style="font-size: 16px; border-bottom: 1px solid #ccc; margin-bottom: 10px;">
                     <label style="vertical-align:text-bottom">Autotest</label>
-                    <i class="material-icons float-right" onclick="addTest(null, 'X (Unedited)')">add_circle_outline</i>
+                    <i class="material-icons float-right" onclick="AutotestGenerator.addTest(null, 'X (Unedited)')">add_circle_outline</i>
                 </div>
                 <div class="row" id="at_warning">
                     <label>There are no tests defined<br/>for this task.</label>
@@ -163,7 +163,7 @@
                     <div id="expected_output_variants" class="row">
                         <div class="col-sm-2">
                             <label>Expected Output</label>
-                            <i class="material-icons float-right" onclick="addOutputVariant()">add_circle_outline</i>
+                            <i class="material-icons float-right" onclick="AutotestGenerator.addOutputVariant()">add_circle_outline</i>
                         </div>
                         <div class="col-sm-10"> </div>
                         <div id="label_div_v_1" class="col-sm-2"> 
@@ -202,8 +202,8 @@
             </div>
             <div class="col-md-12">            
                 <button onclick="" type="button" class="btn btn-danger btn-sm mr-2 waves-effect float-right">Exit</button>
-                <button onclick="exportConfigValues()" type="button" class="btn btn-success btn-sm mr-2 waves-effect float-right">Save & Export</button>
-                <button onclick="importConfigValues()" type="button" class="btn btn-info btn-sm mr-2 waves-effect float-right">Import</button>
+                <button onclick="AutotestGenerator.exportConfigValues()" type="button" class="btn btn-success btn-sm mr-2 waves-effect float-right">Save & Export</button>
+                <button onclick="AutotestGenerator.importConfigValues()" type="button" class="btn btn-info btn-sm mr-2 waves-effect float-right">Import</button>
             </div>
         </div>
     </div>
