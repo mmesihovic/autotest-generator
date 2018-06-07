@@ -2,9 +2,9 @@ const AutotestGenerator = (() => {
 
 //Variables required for operations
 //config is .autotest content
-var config = DummyService.getConfigFile();
+var config;
 var _testSpecifications = [];
-var currentTest = config.test_specifications.length > 0 ? config.test_specifications[0] : null;
+var currentTest;
 
 const getNextTestID = () => {
     var _nextID = _testSpecifications.length ? Number(_testSpecifications[0].id) : 0;
@@ -16,8 +16,11 @@ const getNextTestID = () => {
     }
     return (_nextID+1).toString();
 }
+
 //Function which patches all values on to the forms, creates atList and loads first test if it exists
 const importConfigValues = () => {
+    config = atGeneratorService.getConfigFile("");
+    currentTest = config.test_specifications.length > 0 ? config.test_specifications[0] : null;
     patchConfigValues(config);
     for(let i=0;i < config.test_specifications.length; i++) {
         addTest(config.test_specifications[i], i+1);
@@ -38,8 +41,7 @@ const exportConfigValues = () => {
         }
     }
     newConfig.test_specifications = _testSpecifications;
-    //or JSON.stringify(newConfig)
-    DummyService.saveConfigFile(newConfig);
+    atGeneratorService.saveConfigFile(newConfig);
 }
 
 //Getting general config parameters from form - atConfig
@@ -333,3 +335,5 @@ return {
 }
 
 })();
+
+window.onload = AutotestGenerator.importConfigValues;
