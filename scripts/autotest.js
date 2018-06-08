@@ -3,8 +3,11 @@ const AutotestGenerator = (() => {
 //Variables required for operations
 //config is .autotest content
 var config;
-var _testSpecifications = [];
 var currentTest;
+var get_url;
+var post_url;
+var atid_url;
+var _testSpecifications = [];
 
 const getNextTestID = () => {
     var _nextID = _testSpecifications.length ? Number(_testSpecifications[0].id) : 0;
@@ -17,10 +20,21 @@ const getNextTestID = () => {
     return (_nextID+1).toString();
 }
 
+const setGeneratorSetup = () => {
+    get_url = window.localStorage.getItem("Zamger_GET_Autotest");
+    post_url = window.localStorage.getItem("Zamger_POST_Autotest");
+    atid_url = window.localStorage.getItem("Zamger_GET_AutotestID");
+    window.localStorage.removeItem("Zamger_GET_Autotest");
+    window.localStorage.removeItem("Zamger_POST_Autotest");
+    window.localStorage.removeItem("Zamger_GET_AutotestID");
+    
+    config = atGeneratorService.getConfigFile(get_url);
+    currentTest = config.test_specifications.length > 0 ? config.test_specifications[0] : null;
+    importConfigValues();
+}
+
 //Function which patches all values on to the forms, creates atList and loads first test if it exists
 const importConfigValues = () => {
-    config = atGeneratorService.getConfigFile("");
-    currentTest = config.test_specifications.length > 0 ? config.test_specifications[0] : null;
     patchConfigValues(config);
     for(let i=0;i < config.test_specifications.length; i++) {
         addTest(config.test_specifications[i], i+1);
@@ -41,7 +55,7 @@ const exportConfigValues = () => {
         }
     }
     newConfig.test_specifications = _testSpecifications;
-    atGeneratorService.saveConfigFile(newConfig);
+    atGeneratorService.saveConfigFile(newConfig, post_url);
 }
 
 //Getting general config parameters from form - atConfig
@@ -331,9 +345,10 @@ return {
     removeTest: removeTest,
     addTest: addTest,
     removeOutputVariant: removeOutputVariant,
-    addOutputVariant: addOutputVariant
+    addOutputVariant: addOutputVariant,
+    setGeneratorSetup: setGeneratorSetup
 }
 
 })();
 
-window.onload = AutotestGenerator.importConfigValues;
+window.onload = AutotestGenerator.setGeneratorSetup;

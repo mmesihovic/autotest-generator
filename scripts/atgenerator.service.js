@@ -262,6 +262,7 @@ const atGeneratorService = (() => {
     }
 
     const getConfigFile = (url) => {
+        console.log("GET URL: ", url);
         return cfg;
         /*var http = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -280,6 +281,7 @@ const atGeneratorService = (() => {
     }
 
     const saveConfigFile = (file, url) => {
+        console.log("POST URL: ", url);
         console.log("Saving .autotest file: ", file);
         /*
         var xhttp = new XMLHttpRequest();

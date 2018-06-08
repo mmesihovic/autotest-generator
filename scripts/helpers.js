@@ -59,6 +59,13 @@ const Helpers = (() => {
         return data == "true" ? true : false;
     }
 
+    const openGenerator = (path, url1, url2, url3) => {
+        window.localStorage.setItem("Zamger_GET_Autotest", url1);
+        window.localStorage.setItem("Zamger_POST_Autotest", url2);
+        window.localStorage.setItem("Zamger_GET_AutotestID", url3);
+        window.open("../html/index.html");
+    }
+
     return {
         emptyTest: emptyTest,
         splitStringArray: splitStringArray,
@@ -66,6 +73,7 @@ const Helpers = (() => {
         escapeNewLine: escapeNewLine,
         getBooleanValue: getBooleanValue,
         getRandomInt: getRandomInt,
-        generateIndexSuffix: generateIndexSuffix
+        generateIndexSuffix: generateIndexSuffix,
+        openGenerator: openGenerator
     }
 })();
