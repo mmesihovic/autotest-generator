@@ -20,17 +20,18 @@ const getNextTestID = () => {
     return (_nextID+1).toString();
 }
 
-const setGeneratorSetup = () => {
-    get_url = window.localStorage.getItem("Zamger_GET_Autotest");
-    post_url = window.localStorage.getItem("Zamger_POST_Autotest");
-    atid_url = window.localStorage.getItem("Zamger_GET_AutotestID");
-    window.localStorage.removeItem("Zamger_GET_Autotest");
-    window.localStorage.removeItem("Zamger_POST_Autotest");
-    window.localStorage.removeItem("Zamger_GET_AutotestID");
-    
-    config = atGeneratorService.getConfigFile(get_url);
+const mapValues = (data) =>{
+    config = data;
     currentTest = config.test_specifications.length > 0 ? config.test_specifications[0] : null;
     importConfigValues();
+}
+
+const setGeneratorSetup = () => {
+    get_url = window.localStorage.getItem("Zamger_URL_Autotest");
+    post_url = get_url;
+    window.localStorage.removeItem("Zamger_URL_Autotest");
+    
+    atGeneratorService.getConfigFile(get_url, mapValues);     
 }
 
 //Function which patches all values on to the forms, creates atList and loads first test if it exists
@@ -61,7 +62,7 @@ const exportConfigValues = () => {
 //Getting general config parameters from form - atConfig
 const getConfigValues = () => {
     return {
-        id: Number(document.getElementById('id').value),
+        id: Number(document.getElementById('id').value) ? Number(document.getElementById('id').value) : 0,
         name: document.getElementById('name').value,
         language: document.getElementById('language').value,
         required_compiler: document.getElementById('required_compiler').value,

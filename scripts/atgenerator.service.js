@@ -261,20 +261,22 @@ const atGeneratorService = (() => {
         "test_specifications": []
     }
 
-    const getConfigFile = (url) => {
+    const getConfigFile = (url, callback) => {
         console.log("GET URL: ", url);
-        return cfg;
-        /*var http = new XMLHttpRequest();
+        callback(cfg);
+        /*var data;
+        var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if(xhttp.readystate == 4 && xhttp.status == 200) {
-                return JSON.parse(xhttp.responseText);
+                data = JSON.parse(xhttp.responseText);
             }
-            if(xhttp.readystate == 4 && http.status == 404) {
-                return emptyConfig;
+            if(xhttp.readystate == 4 && xhttp.status == 404) {
+                data = emptyConfig;
             }
-            if(xhtt.readystate == 4 && http.status != 200 && http.status != 400) {
-                alert("An error occured. Error: " + hxttp.responseText);
+            if(xhttp.readystate == 4 && xhttp.status != 200 && xhttp.status != 400) {
+                alert("An error occured. Error: " + xhttp.responseText);
             }
+            callback(data);
         }
         xhttp.open("GET", url, true);
         xhttp.send();*/
@@ -283,8 +285,7 @@ const atGeneratorService = (() => {
     const saveConfigFile = (file, url) => {
         console.log("POST URL: ", url);
         console.log("Saving .autotest file: ", file);
-        /*
-        var xhttp = new XMLHttpRequest();
+        /*var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if(xhttp.readystate == 4 && xhttp.status == 200) {
                 alert("Successfully created and saved .autotest file");
@@ -293,8 +294,8 @@ const atGeneratorService = (() => {
                 alert("An error occured. Error: " + xhttp.responseText);
             }
         }
-        xhttp.open("POST", url, true);
-        xhttp.send();*/
+        xhttp.open("PUT", url, true);
+        xhttp.send(file);*/
     }
     return {
         getConfigFile: getConfigFile,

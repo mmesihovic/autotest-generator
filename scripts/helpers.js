@@ -1,6 +1,5 @@
 const Helpers = (() => {
     //Empty test JSON for adding new test into _testSpecifications
-    //ID yet has to be generated
     const emptyTest = {
         "id": "",
         "require_symbols": [],
@@ -32,7 +31,6 @@ const Helpers = (() => {
     }
 
     const splitStringArray = (objectID) => {
-        //Razmisliti o regexu ovdje umjesto ovog ofirnog pristupa
         var rawData = document.getElementById(objectID).value;
         if(rawData == "") return [];
         var splitData = rawData.split(",");
@@ -59,11 +57,11 @@ const Helpers = (() => {
         return data == "true" ? true : false;
     }
 
-    const openGenerator = (path, url1, url2, url3) => {
-        window.localStorage.setItem("Zamger_GET_Autotest", url1);
-        window.localStorage.setItem("Zamger_POST_Autotest", url2);
-        window.localStorage.setItem("Zamger_GET_AutotestID", url3);
-        window.open("../html/index.html");
+    const openGenerator = (path, url, zamger) => {
+        window.localStorage.setItem("Zamger_URL_Autotest", url);
+        if(zamger == true) {
+            window.open(path);
+        }
     }
 
     return {
